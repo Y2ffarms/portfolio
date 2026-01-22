@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aezzy I.T | Web Developer & Digital Strategist</title>
+    <!-- Icons for Services -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com">
+    <style>
+        :root {
+            --primary-color: #00d9ff;
+            --bg-dark: #0f0c29;
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --transition: all 0.4s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink { 50% { border-color: transparent } }
+
+        /* --- Navigation --- */
+        nav {
+            background: rgba(15, 12, 41, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-box { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .logo-box img { height: 35px; border-radius: 5px; }
+        .logo-text { font-size: 1.4rem; font-weight: bold; color: var(--primary-color); }
+
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 500; transition: var(--transition); }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        /* --- PURE CSS WHITE TOGGLE BAR (GUARANTEED TO SHOW) --- */
+        .menu-btn {
+            display: none; /* Hidden on Desktop */
+            width: 30px;
+            height: 22px;
+            position: relative;
+            cursor: pointer;
+            z-index: 10001;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #ffffff; /* FORCED WHITE COLOR */
+            border-radius: 2px;
+            position: absolute;
+            transition: 0.3s ease;
+        }
+
+        .line-1 { top: 0; }
+        .line-2 { top: 9px; }
+        .line-3 { top: 18px; }
+
+        /* Animation when menu opens */
+        .menu-btn.open .line-1 { transform: translateY(9px) rotate(45deg); background: var(--primary-color); }
+        .menu-btn.open .line-2 { opacity: 0; }
+        .menu-btn.open .line-3 { transform: translateY(-9px) rotate(-45deg); background: var(--primary-color); }
+
+        /* --- Hero Section --- */
+        header {
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background: linear-gradient(rgba(15, 12, 41, 0.7), rgba(15, 12, 41, 0.7)), url('Images/yhno.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .animate-title { font-size: clamp(2.5rem, 8vw, 4.5rem); color: var(--primary-color); animation: fadeInUp 1s ease-out forwards; }
+
+        .typewriter-container {
+            display: inline-block;
+            overflow: hidden;
+            border-right: 3px solid var(--primary-color);
+            white-space: nowrap;
+            margin: 15px auto;
+            max-width: fit-content;
+            animation: typing 3s steps(40, end), blink .75s step-end infinite;
+            animation-delay: 1s;
+            animation-fill-mode: both;
+        }
+        .typewriter-container p { font-size: clamp(1rem, 2.5vw, 1.4rem); color: #ccc; }
+
+        /* --- Sections --- */
+        section { max-width: 1100px; margin: 5rem auto; padding: 0 2rem; opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        section.appear { opacity: 1; transform: translateY(0); }
+
+        h2 { font-size: 2.2rem; margin-bottom: 2rem; color: var(--primary-color); }
+        .card { background: var(--card-bg); padding: 2rem; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 1.5rem; transition: var(--transition); }
+        .card:hover { border-color: var(--primary-color); transform: translateY(-5px); }
+
+        /* --- Services Grid --- */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+        .service-card { text-align: center; }
+        .service-card i { font-size: 2.5rem; color: var(--primary-color); margin-bottom: 1rem; }
+
+        /* --- Contact Form --- */
+        .contact-flex { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .contact-form input, .contact-form textarea { width: 100%; padding: 1rem; margin-bottom: 1rem; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; }
+        .contact-form button { width: 100%; padding: 1rem; background: var(--primary-color); border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: var(--transition); }
+        .contact-form button:hover { background: #fff; color: #000; }
+
+        /* --- Mobile Setup --- */
+        @media (max-width: 768px) {
+            .menu-btn { display: block; }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: #0f0c29;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s ease-in-out;
+                box-shadow: -10px 0 20px rgba(0,0,0,0.5);
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links li { margin: 20px 0; }
+            .typewriter-container { white-space: normal; border-right: none; animation: fadeInUp 1s forwards; animation-delay: 1s; }
+        }
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            border-bottom: 3px solid transparent;
+            transition: var(--transition);
+        }
+
+        .skill-item i {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .skill-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-bottom-color: var(--primary-color);
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#" class="logo-box">
+            <img src="Images/dd.png" alt="Logo">
+            <span class="logo-text">AEZZY I.T</span>
+        </a>
+        
+        <!-- PURE CSS TOGGLE -->
+        <div class="menu-btn" id="menu-btn" onclick="toggleMenu()">
+            <span class="line-1"></span>
+            <span class="line-2"></span>
+            <span class="line-3"></span>
+        </div>
+
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#about" onclick="toggleMenu()">About</a></li>
+            <li><a href="#services" onclick="toggleMenu()">Services</a></li>
+            <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <h1 class="animate-title">Creative Web Solutions.</h1>
+        <div class="typewriter-container">
+            <p>Expert Web Development & Google Business Optimization.</p>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="card">
+            <p>I am <strong>Aezzy I.T</strong>, a professional Web Developer with 2 years of experience. I specialize in building responsive, high-performance websites and helping local businesses dominate search results through GMB optimization.   I believe that great design combined with clean code creates powerful digital solutions that make a real impact. My goal is to create beautiful, functional, and user-friendly web experiences that help businesses grow.</p>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>My Expertise</h2>
+        <div class="grid">
+            <div class="card service-card">
+                <i class="fa-solid fa-code"></i>
+                <h3>Web Design</h3>
+                <p>Modern, mobile-friendly websites built for speed and conversion.</p>
+            </div>
+            <div class="card service-card">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <h3>GMB Optimization</h3>
+                <p>Local SEO strategies to put your business on the map.</p>
+            </div>
+            <div class="card service-card">
+                <i class="fa-solid fa-gauge-high"></i>
+                <h3>Performance</h3>
+                <p>Optimizing site speed and technical SEO for better rankings.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2>Featured Work</h2>
+        <div class="card">
+            <h3 style="color: var(--primary-color);">Y2f Farms</h3>
+            <p>A specialized e-commerce platform for a commercial poultry farm, featuring live product displays and customer engagement tools.</p>
+        </div>
+    </section>
+
+
+    <section id="skills">
+        <h2><i class="fas fa-tools"></i> My Tech skills</h2>
+        <div class="skills-grid">
+            <div class="skill-item"><i class="fab fa-html5"></i> HTML5</div>
+            <div class="skill-item"><i class="fab fa-css3-alt"></i> CSS</div>
+            <div class="skill-item"><i class="fab fa-js"></i> JavaScript</div>
+            <div class="skill-item"><i class="fas fa-mobile-alt"></i> Responsive</div>
+            <div class="skill-item"><i class="fab fa-github"></i> Git & GitHub</div>
+            <div class="skill-item"><i class="fas fa-paint-brush"></i> UI Design</div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-flex">
+            <div class="card">
+                <p>Ready to start your project? Let's discuss how I can help your business grow.</p>
+                <br>
+                <p><i class="fa-solid fa-envelope"></i> Ainagoodluck76@gmail.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> Lagos, Nigeria / Remote</p>
+            </div>
+            <form class="contact-form card">
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <textarea rows="4" placeholder="How can I help you?" required></textarea>
+                <button type="submit" ><a href="https://wa.me/2348059692638" >whatsapp me</a></button>
+            </form>
+        </div>
+    </section>
+
+    <footer style="text-align: center; padding: 3rem; background: rgba(0,0,0,0.3);">
+        <p>&copy; 2026 Aezzy I.T. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('nav-links');
+            const btn = document.getElementById('menu-btn');
+            
+            nav.classList.toggle('active');
+            btn.classList.toggle('open');
+        }
+
+        // Scroll reveal animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('appear');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(s => observer.observe(s));
+    </script>
+</body>
+</html>
